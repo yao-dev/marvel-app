@@ -1,0 +1,21 @@
+{
+  "presets": [
+    "next/babel",
+    "stage-0"
+  ],
+  "plugins": [
+    ["babel-plugin-styled-components", {
+      "ssr": true
+    }],
+    ["module-resolver", {
+      "alias": {
+        "@": "./",
+        "src": "./src",
+        "components": "./src/components",
+        "config":    "./src/config",
+        "helpers":    "./src/helpers",
+        "static":    "./src/static",
+      }
+    }]
+  ]
+}
