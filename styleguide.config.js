@@ -1,5 +1,5 @@
 module.exports = {
-  components: './src/components/**/*.js',
+  components: './src/components/**/index.js',
   webpackConfig: {
     module: {
       loaders: [{

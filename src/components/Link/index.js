@@ -11,7 +11,10 @@ const Link = ({ children, href, ...otherProps }) => {
 
 Link.propTypes = {
   children: PropTypes.node.isRequired,
-  href: PropTypes.string.isRequired,
+  href: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object
+  ]).isRequired,
   // TODO add otherProps
 };
 
