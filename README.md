@@ -8,7 +8,7 @@ npm install
 
 ## Requirements
 
-Add API_PUBLIC and API_PRIVATE key in src/config/index.js
+Add **API_PUBLIC** and **API_PRIVATE** key igin src/config/index.js
 
 ## Start app
 
