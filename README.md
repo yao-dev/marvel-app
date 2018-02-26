@@ -3,6 +3,7 @@
 ```
 git clone git@github.com:yao-dev/marvel-app.git
 cd marvel-app
+npm install
 ```
 
 ## Requirements
