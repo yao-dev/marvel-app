@@ -2,9 +2,9 @@ import { bindActionCreators } from 'redux';
 import { nextConnect } from '@/configureStore';
 
 const mapStateToProps = (state, ownProps) => {
-  const marvels = ownProps.withCollection ? ownProps.collections : state.app.marvels;
+  const list = ownProps.withCollection ? ownProps.collections : state.characters.list;
   return {
-    marvels,
+    list,
   };
 };
 

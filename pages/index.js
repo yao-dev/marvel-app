@@ -6,6 +6,6 @@ import Config from 'helpers/config';
 
 export default () => (
   <Layout title={Config.get('app_name')}>
-    <MarvelList displayMode='grid' />
+    <MarvelList page="marvels" displayMode="grid" />
   </Layout>
 );

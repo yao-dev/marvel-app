@@ -1,31 +1,31 @@
 import { bindActionCreators } from 'redux';
 import { filter, get } from 'lodash';
 import moment from 'moment';
+
 import { nextConnect } from '@/configureStore';
 import {
-  getMarvelCollections
-} from 'src/services';
+  getCharactersCollections
+} from 'services/characters';
 
 const mapStateToProps = (state, ownProps) => {
-  const marvel = filter(state.app.marvels, { id: ownProps.id })[0] || {};
+  const character = filter(state.characters.list, { id: ownProps.id })[0] || {};
 
   return {
-    name: marvel.name,
-    description: marvel.description,
-    modified: moment(marvel.modified).format('DD MMMM YYYY'),
-    thumbnail: `${get(marvel.thumbnail, 'path', '')}.${get(marvel.thumbnail, 'extension', '')}`,
-    comics: marvel.comics,
-    series: marvel.series,
-    stories: marvel.stories,
-    events: marvel.events,
-    urls: marvel.urls,
-    collections: state.app.collections
+    name: character.name,
+    description: character.description,
+    modified: moment(character.modified).format('DD MMMM YYYY'),
+    thumbnail: `${get(character.thumbnail, 'path', '')}.${get(character.thumbnail, 'extension', '')}`,
+    collections: state.characters.collections,
+    urls: character.urls,
+    loading: get(state, 'characters.loading', false),
   }
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  getMarvelCollections: bindActionCreators(getMarvelCollections, dispatch)
-});
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getCharactersCollections: bindActionCreators(getCharactersCollections, dispatch)
+  };
+};
 
 export const Container = (Component) => nextConnect(
   mapStateToProps,

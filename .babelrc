@@ -15,6 +15,10 @@
         "config":    "./src/config",
         "helpers":    "./src/helpers",
         "static":    "./src/static",
+        "actions":    "./src/actions",
+        "reducers":    "./src/reducers",
+        "constants":    "./src/constants",
+        "services":    "./src/services",
       }
     }]
   ]

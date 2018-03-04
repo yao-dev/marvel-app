@@ -15,12 +15,11 @@ export const formatQuery = (params = {}) => {
   return url.format({ query });
 };
 
-export const getFormattedUrl = (uri = null, params = {}) => {
+export const getFormattedUrl = (uri = '', params = {}) => {
   const api = Config.get('api')
-  const host = uri || api.protocol + path.join(api.base_url, api.uri);
+  const host = `${api.protocol}${path.join(api.base_url, api.uri, uri)}`;
   const query = formatQuery(params);
 
-  if (uri) return uri + query;
   return host + query;
 };
 

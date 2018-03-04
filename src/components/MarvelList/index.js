@@ -2,60 +2,63 @@ import PropTypes from 'prop-types';
 import { startCase } from 'lodash';
 import { Header } from 'semantic-ui-react';
 
-import Connect from './container';
-import {
-  MainContainer,
-  RowContainer,
-  GridContainer
-} from './style';
 import MarvelCard from 'components/MarvelCard';
+import Connect from './container';
+import Styled from './style';
 
 /**
  * Component used to displayMode a collection of marvel cards
  */
 class MarvelList extends React.Component {
   renderDisplayModeContainer = (displayMode, content) => {
-    if (displayMode === 'row') {
-      return (
-        <RowContainer>
-          {content}
-        </RowContainer>
-      );
+    switch (displayMode) {
+      case 'row':
+        return (
+          <Styled.Row>
+            {content}
+          </Styled.Row>
+        );
+      case 'grid':
+        return (
+          <Styled.Grid>
+            {content}
+          </Styled.Grid>
+        );
+      default:
+        return null;
     }
-
-    return (
-      <GridContainer>
-        {content}
-      </GridContainer>
-    );
   }
 
   render() {
-    const { title, marvels, displayMode, withCollection } = this.props;
+    const { title, list, displayMode, withCollection } = this.props;
 
-    const content = marvels.map((marvel) => {
-      const thumbnail = marvel.thumbnail ? `${marvel.thumbnail.path}.${marvel.thumbnail.extension}` : undefined;
+    const content = list.map((character) => {
+      const thumbnail = character.thumbnail ? (
+        `${character.thumbnail.path}.${character.thumbnail.extension}`
+      ) : undefined;
+      const href = { pathname: this.props.page, query: { id: character.id } };
+
       return (
         <MarvelCard
-          key={marvel.id}
-          id={marvel.id}
-          name={marvel.name || marvel.title}
-          description={marvel.description}
+          key={character.id}
+          id={character.id}
+          name={character.name || character.title}
           thumbnail={thumbnail}
           nameInHover={withCollection}
+          href={href}
         />
       );
     });
 
     return (
-      <MainContainer>
-        {title && marvels.length ? (
-          <Header as='h2'>
-            {startCase(title)} ({marvels.length})
+      <Styled.MainContainer>
+        {title && list.length ? (
+          <Header as="h2">
+            {startCase(title)} ({list.length})
           </Header>
         ) : null }
         {this.renderDisplayModeContainer(displayMode, content)}
-      </MainContainer>
+      </Styled.MainContainer>
     );
   }
 };
@@ -66,13 +69,13 @@ MarvelList.propTypes = {
    */
   title: PropTypes.string,
   /**
+   * Page name to redirect on click on item
+   */
+  page: PropTypes.string,
+  /**
    * List of Marvels
    */
-  marvels: PropTypes.array,
-  /**
-   * List of collections
-   */
-  collections: PropTypes.array,
+  list: PropTypes.array,
   /**
    * Displaying mode
    */
@@ -84,8 +87,7 @@ MarvelList.propTypes = {
 };
 
 MarvelList.defaultProps = {
-  marvels: [],
-  collections: [],
+  list: [],
   displayMode: PropTypes.oneOf(['row', 'grid']),
   withCollection: false,
 };

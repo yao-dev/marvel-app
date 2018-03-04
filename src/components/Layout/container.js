@@ -1,18 +1,20 @@
 import { bindActionCreators } from 'redux';
 import { nextConnect } from '@/configureStore';
 import {
-  getMarvels
-} from 'src/services';
+  getCharacters
+} from 'services/characters';
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    marvels: state.app.marvels,
+    characters: state.characters.list,
   };
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  getMarvels: bindActionCreators(getMarvels, dispatch),
-});
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getCharacters: bindActionCreators(getCharacters, dispatch),
+  };
+};
 
 export const Container = (Component) => nextConnect(
   mapStateToProps,

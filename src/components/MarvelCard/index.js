@@ -1,29 +1,9 @@
 import PropTypes from 'prop-types';
-import { Card, Icon, Image, Dimmer, Button, Header } from 'semantic-ui-react';
+import { Image, Button, Header } from 'semantic-ui-react';
 
-import Link from 'components/Link';
 import utils from 'src/utils';
-
-const styles = {
-  container: {
-    margin: '3em 2em',
-    display: 'flex',
-    flexFlow: 'column wrap',
-    alignContent: 'center'
-  },
-  image: {
-    width: '200px',
-    marginBottom: '1.5em',
-    WebkitBoxShadow: 'rgba(0, 0, 0, 0.85) 0px 0px 40px 0px',
-    MozBoxShadow: 'rgba(0, 0, 0, 0.85) 0px 0px 40px 0px',
-    boxShadow: 'rgba(0, 0, 0, 0.85) 0px 0px 40px 0px',
-  },
-  title: {
-    textAlign: 'left',
-    fontWeight: 'bold',
-    color: '#FFF'
-  }
-};
+import Link from 'components/Link';
+import Styled from './style';
 
 /**
  * Component used to display the details of a marvel
@@ -39,30 +19,31 @@ class MarvelCard extends React.Component {
 
   render() {
     const { active } = this.state;
-    const href = { pathname: 'marvels', query: { id: this.props.id } };
-
     const content = (
       <div>
-        {this.props.nameInHover ? <Header as='h2' inverted>{this.props.name}</Header> : null}
-        <Link href={href}>
+        {this.props.nameInHover ? (
+          <Header as="h2" inverted>{this.props.name}</Header>
+        ) : null }
+        <Link href={this.props.href}>
           <Button primary>View</Button>
         </Link>
       </div>
     );
 
     return (
-      <div style={styles.container}>
-        <Dimmer.Dimmable
+      <Styled.MainContainer>
+        <Styled.DimmerDimmable
           as={Image}
           dimmed={active}
           dimmer={{ active, content }}
           onMouseEnter={this.handleShow}
           onMouseLeave={this.handleHide}
           src={this.props.thumbnail}
-          style={styles.image}
         />
-        {this.props.name && !this.props.nameInHover ? <p style={styles.title}>{this.props.name}</p> : null}
-      </div>
+        {this.props.name && !this.props.nameInHover ? (
+          <Styled.MarvelName>{this.props.name}</Styled.MarvelName>
+        ) : null }
+      </Styled.MainContainer>
     );
   }
 };
@@ -80,6 +61,13 @@ MarvelCard.propTypes = {
    * Display Marvel name in hover
    */
   nameInHover: PropTypes.bool,
+  /**
+   * Link address
+   */
+  href: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object,
+  ]).isRequired
 };
 
 MarvelCard.defaultProps = {
